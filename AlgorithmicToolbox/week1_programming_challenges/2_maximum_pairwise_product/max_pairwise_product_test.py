@@ -5,7 +5,7 @@ from max_pairwise_product import max_pairwise_product
 
 class TestMaxPairwiseProduct(unittest.TestCase):
     def setUp(self):
-        len = 10000
+        len = 1010
         test_arr = []
         call_arr = []
         for i in range(len):
