@@ -2,15 +2,22 @@
 
 import sys
 
-def dfs(adj, used, order, x):
-    #write your code here
-    pass
+def DFS(adj, used, order, x):
+    used[x] = True
 
+    for i in adj[x]:
+        if used[i] == False:
+            DFS(adj, used, order, i)
+
+    order.insert(0, x)
 
 def toposort(adj):
     used = [0] * len(adj)
     order = []
-    #write your code here
+    for i in range(len(adj)):
+        if used[i] == False:
+            DFS(adj, used, order, i)
+
     return order
 
 if __name__ == '__main__':

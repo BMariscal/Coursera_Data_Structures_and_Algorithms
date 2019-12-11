@@ -2,9 +2,35 @@
 
 import sys
 
-
 def acyclic(adj):
+    visited = [False] * len(adj)
+    stack = [False] * len(adj)
+    for node in range(len(adj)):
+        if visited[node] == False:
+            if acyclic_util(adj, node, visited, stack) == True:
+                return 1
     return 0
+
+
+
+def acyclic_util(adj, v, visited, stack):
+    visited[v] = True
+    stack[v] = True
+
+    # If any neighbor is visited and in the stack then graph is cyclic
+    for neighbor in adj[v]:
+        if visited[neighbor] == False:
+            if acyclic_util(adj, neighbor, visited, stack) == True:
+                return True
+        elif stack[neighbor] == True:
+            return True
+
+    stack[v] = False
+    return False
+
+
+
+
 
 if __name__ == '__main__':
     input = sys.stdin.read()
