@@ -1,11 +1,40 @@
 #Uses python3
 
 import sys
-import queue
-
+from collections import defaultdict
+from heapq import heappop, heappush
 
 def distance(adj, cost, s, t):
-    #write your code here
+    graph = defaultdict(list)
+
+    for k in range(len(adj)):
+        for i in range(len(adj[k])):
+            w = cost[k][i]
+            graph[k].append((w, adj[k][i]))
+
+    q = [(0, s, ())]
+    visited = set()
+    min_dict = {s: 0}
+    # (u, v, weight)
+    # [(1,2,5), (2,5, 3)]
+
+    while q:
+        (costd,v1,path) = heappop(q)
+        if v1 not in visited:
+            visited.add(v1)
+            path = (v1, path)
+            if v1 == t:
+                return costd
+
+            for c, v2 in graph.get(v1, ()):
+                if v2 in visited:
+                    continue
+                prev = min_dict.get(v2, None)
+                next_item = costd + c
+                if prev is None or next_item < prev:
+                    min_dict[v2] = next_item
+                    heappush(q, (next_item, v2, path))
+
     return -1
 
 

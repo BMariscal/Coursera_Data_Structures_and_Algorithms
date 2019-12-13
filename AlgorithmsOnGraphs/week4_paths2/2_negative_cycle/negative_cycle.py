@@ -4,7 +4,17 @@ import sys
 
 
 def negative_cycle(adj, cost):
-    #write your code here
+    distance_arr = [0] * len(adj)
+    distance_arr[0] = 0
+
+    for i in range(len(adj)):
+        for u in range(len(adj)):
+            for vertex in adj[u]:
+                vertex_index = adj[u].index(vertex)
+                if distance_arr[vertex] > distance_arr[u] + cost[u][vertex_index]:
+                    distance_arr[vertex] = distance_arr[u] + cost[u][vertex_index]
+                    if i == len(adj) - 1:
+                        return 1
     return 0
 
 
