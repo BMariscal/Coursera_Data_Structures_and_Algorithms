@@ -4,8 +4,23 @@ import sys
 import queue
 
 def distance(adj, s, t):
-    #write your code here
-    return -1
+    distance_arr = [len(adj)] * len(adj)
+    distance_arr[s] = 0
+
+    q = queue.Queue()
+    q.put(s)
+
+    while q.empty()  == False:
+        v = q.get()
+
+        for i in adj[v]:
+            if distance_arr[i] == len(adj):
+                q.put(i)
+                distance_arr[i] = distance_arr[v] + 1
+
+    return -1 if distance_arr[t] == len(adj) else distance_arr[t]
+
+
 
 if __name__ == '__main__':
     input = sys.stdin.read()

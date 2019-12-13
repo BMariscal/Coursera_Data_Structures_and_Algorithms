@@ -4,8 +4,28 @@ import sys
 import queue
 
 def bipartite(adj):
-    #write your code here
-    return -1
+    visited = [False] * len(adj)
+    visited[0] = True
+
+    partition = [-1] * len(adj)
+    partition[0] = 0
+    q = queue.Queue()
+    q.put(0)
+
+    while q.empty() == False:
+        v = q.get()
+        for i in adj[v]:
+            if partition[i] == partition[v]:
+                return 0
+            else:
+                if visited[i] is False:
+                    q.put(i)
+                    partition[i] = 1 - partition[v]
+                    visited[i] = True
+
+    return 1
+
+
 
 if __name__ == '__main__':
     input = sys.stdin.read()
